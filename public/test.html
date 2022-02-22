@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>echarts山东省地图</title>
+  <script type="text/javascript" src="/js/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html,body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--数据是json文件，不支持硬盘路径读取-->
+  <div id="main" style="width: 900px;height:560px;"></div>
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script>
+    var chart = echarts.init(document.getElementById('main'));
+    $.getJSON('/js/370000_full.json', function (data) {
+      echarts.registerMap("山东省", data);
+      var d = [];
+      for (var i = 0; i < data.features.length; i++) {
+        d.push({
+          name: data.features[i].properties.name
+        })
+      }
+      renderMap("山东省", d)
+    });
+    var option = {
+      // backgroundColor: '#000',
+      // tooltip: {
+      //   trigger: 'item',
+      //   formatter: '{b}'
+      // },
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      animationDurationUpdate: 1000
+    };
+
+    function renderMap(map, data) {
+      // option.title.subtext = map;
+      option.series = [{
+        name: map,
+        type: 'map',
+        mapType: map,
+        roam: false,
+        nameMap: {
+          'china': '中国'
+        },
+        label: {
+          normal: {
+            show: true,
+            textStyle: {
+              color: '#999',
+              fontSize: 13
+            }
+          },
+          emphasis: {
+            show: true,
+            textStyle: {
+              color: '#fff',
+              fontSize: 13
+            }
+          }
+        },
+        itemStyle: {
+          normal: {
+            areaColor: '#6696',
+            borderColor: 'aqua'
+          },
+          emphasis: {
+            areaColor: 'purple'
+          }
+        },
+        data: data
+      }];
+      chart.setOption(option)
+    }
+  </script>
+</body>
+
+</html>
