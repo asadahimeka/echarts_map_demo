@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>echarts山东省地图</title>
-  <script type="text/javascript" src="/js/echarts.min.js"></script>
+  <script type="text/javascript" src="./js/echarts.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -19,10 +19,10 @@
 <body>
   <!--数据是json文件，不支持硬盘路径读取-->
   <div id="main" style="width: 900px;height:560px;"></div>
-  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
   <script>
     var chart = echarts.init(document.getElementById('main'));
-    $.getJSON('/js/370000_full.json', function (data) {
+    $.getJSON('./js/370000_full.json', function (data) {
       echarts.registerMap("山东省", data);
       var d = [];
       for (var i = 0; i < data.features.length; i++) {
